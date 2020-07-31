@@ -1,0 +1,9 @@
+package-as: PlexusStatusHealTracker
+
+ignore:
+   - CHANGELOG.md
+   - README.md
+   - .pkgmeta
+
+required-dependencies:
+   - plexus
