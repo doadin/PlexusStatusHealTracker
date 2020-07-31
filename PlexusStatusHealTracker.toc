@@ -1,0 +1,30 @@
+#@retail@
+## Interface: 80300
+#@end-retail@
+#@non-retail@
+## Interface: 11305
+#@end-non-retail@
+## Version: @project-version@
+
+## Title: PlexusStatusHealTracker
+## Notes: Shows in Plexus who was healed by your multi-target heals.
+## Notes-deDE: Zeigt auf Plexus, wer durch deine Heilungzauber mehrerer Ziele geheilt wurde.
+## Notes-esES: Muestra en Plexus que fue sanada por tus hechizos de curación de múltiples objetivos.
+## Notes-esMX: Muestra en Plexus que fue sanada por sus hechizos de curación de múltiples objetivos.
+## Notes-frFR: Affiche sur Plexus à ceux qui vie rendus par vos sorts de soins de multiples cibles.
+## Notes-itIT: Mostra su Plexus che è stato curato dalle tue incantesimi curative di multipli obiettivi.
+## Notes-ptBR: Mostra no Plexus que foi curado por seu feitiços de cura de múltiplos alvos.
+## Notes-ruRU: Показывает в Plexus, кто был вылечен Вашими АОЕ-заклинаниями.
+## Notes-koKR: 당신의 다중 대상에 대한 치유를 표시합니다.
+## Notes-zhCN: 在Plexus里显示你的群体治疗法术的治疗目标。
+## Notes-zhTW: 在Plexus中顯示群體治療法術的目標。
+
+## Author: Doadin
+## X-Credits: Originally written by Akkorian. Updated By Phanx now Doadin.
+## X-License: All Rights Reserved
+## X-Curse-Project-ID: 399251
+
+## Dependencies: Plexus
+
+Localization.lua
+PlexusStatusHealTracker.lua
