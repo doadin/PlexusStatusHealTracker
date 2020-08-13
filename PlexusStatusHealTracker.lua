@@ -73,7 +73,6 @@ for _, spellID in ipairs({
 }) do
 	local name, _, icon = GetSpellInfo(spellID) --luacheck: ignore 113
 	if name then
-		print(name)
 		PlexusStatusHealTracker.defaultDB.alert_healTrace.spells[name] = icon
 	end
 end
@@ -246,41 +245,28 @@ end)
 
 function PlexusStatusHealTracker:COMBAT_LOG_EVENT_UNFILTERED(_, _, event) --luacheck: ignore 212
 	local timestamp, eventType, _, sourceGUID, sourceName, _, _, destGUID, destName, _, _, spellID, spellName = CombatLogGetCurrentEventInfo() --luacheck: ignore 631 113 211
-	--print(_, sourceGUID, sourceName, _, _, destGUID, destName, _, _, spellID, spellName)
 	if sourceGUID ~= playerGUID then
-		--print("1: ", sourceGUID, " ", playerGUID)
 		return
 	end
 	--if eventType ~= "SPELL_HEAL" then
-		--print(eventType)
-		--print("1: ", sourceGUID, " ", playerGUID)
 		--return
 	--end
 	--if not sourceName then
-		--print(sourceName)
 		--return
 	--end
-	--print(spellName)
-	--print(spellID)
 	--if spells[spellName] then
-	--	print("3",spellName)
 	--	--return
 	--end
 	if not spells[spellName] then
-		--print("3",spellName)
 		return
 	end
-    --print("We made it this far!")
 	local spellIcon = spells[spellName]
-	--print(spellIcon)
 	if type(spellIcon) == "boolean" then
-		--print("We made it this far!")
 		local name, _, icon = GetSpellInfo(spellID) --luacheck: ignore 113
 		self:RemoveSpell(name)
 		self:AddSpell(name, icon)
 		spellIcon = icon
 	end
-    --print("We made it this far!")
 	self.core:SendStatusGained(destGUID, "alert_healTrace",
 		settings.priority,
 		settings.range,
