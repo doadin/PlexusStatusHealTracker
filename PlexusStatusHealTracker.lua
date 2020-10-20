@@ -14,10 +14,11 @@
 
 local _, ns = ...
 local L = ns.L
+local GetSpellInfo = GetSpellInfo
 
 local PlexusStatusHealTracker = Plexus:NewStatusModule("PlexusStatusHealTracker") --luacheck: ignore 113
 local active, spellOrder, playerGUID, settings, spells = {}, {}
-local totemguid
+local totemguid = ""
 local healingtide = select(3, GetSpellInfo(108280))
 
 ------------------------------------------------------------------------
@@ -248,12 +249,12 @@ end)
 
 function PlexusStatusHealTracker:COMBAT_LOG_EVENT_UNFILTERED(_, _, event) --luacheck: ignore 212
     local timestamp, eventType, _, sourceGUID, sourceName, _, _, destGUID, destName, _, _, spellID, spellName = CombatLogGetCurrentEventInfo() --luacheck: ignore 631 113 211
-    print(eventType)
+    --local totemguid
     if sourceGUID == playerGUID and eventType == "SPELL_SUMMON" and spells[spellName] == healingtide then
         totemguid = destGUID -- healing tide fix
     end
     if eventType == "SPELL_HEAL" and ((sourceGUID == playerGUID and spells[spellName]) or sourceGUID == totemguid) then
-        local spellIcon = spells[spellName]
+        local spellIcon
         if sourceGUID == totemGUID then
             spellIcon = healingtide
         else
