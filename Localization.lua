@@ -1,19 +1,19 @@
 ﻿--[[--------------------------------------------------------------------
-	GridStatusHealTrace
-	Shows in Grid who was healed by your multi-target heals.
-	Copyright (c) 2010-2011 Akkorian <akkorian@armord.net>. All rights reserved.
-	Copyright (c) 2011-2018 Phanx <addons@phanx.net>. All rights reserved.
-	https://www.wowinterface.com/downloads/info16608-GridStatusHealTrace.html
-	https://www.curseforge.com/wow/addons/gridstatushealtrace
-	https://github.com/Phanx/GridStatusHealTrace
+    GridStatusHealTrace
+    Shows in Grid who was healed by your multi-target heals.
+    Copyright (c) 2010-2011 Akkorian <akkorian@armord.net>. All rights reserved.
+    Copyright (c) 2011-2018 Phanx <addons@phanx.net>. All rights reserved.
+    https://www.wowinterface.com/downloads/info16608-GridStatusHealTrace.html
+    https://www.curseforge.com/wow/addons/gridstatushealtrace
+    https://github.com/Phanx/GridStatusHealTrace
 ----------------------------------------------------------------------]]
 
 local _, ns = ...
 
 local L = setmetatable({}, { __index = function(t, k)
-	local v = tostring(k)
-	t[k] = v
-	return v
+    local v = tostring(k)
+    t[k] = v
+    return v
 end })
 ns.L = L
 
