@@ -17,6 +17,8 @@ local L = ns.L
 
 local PlexusStatusHealTracker = Plexus:NewStatusModule("PlexusStatusHealTracker") --luacheck: ignore 113
 local active, spellOrder, playerGUID, settings, spells = {}, {}
+local totemguid
+local healingtide = select(3, GetSpellInfo(108280))
 
 ------------------------------------------------------------------------
 
@@ -42,6 +44,7 @@ for _, spellID in ipairs({
 	196725, -- Refreshing Jade Wind
 	198664, -- Invoke Chi-Ji the Red Crane
 	116670, -- Vivify
+	274912, -- Rising Mist (talent)
 	-- Paladin
 	119952, -- Arcing Light (talent: Light's Hammer)
     --	183415, -- Aura of Mercy (ignored: passive + too small to matter?)
@@ -64,10 +67,10 @@ for _, spellID in ipairs({
 	200128, -- Trail of Light -- NEEDS CHECK, might show as Flash Heal on secondary target
 	-- Shaman
 	1064,   -- Chain Heal
-    --157153, -- Cloudburst  (doesn't work, caster not player)
+    157503, -- Cloudburst  (doesn't work, caster not player)
     73920,  -- Healing Rain -- NEEDS CHECK, is it big enough to care about?
     --5394,   -- Healing Stream Totem (doesn't work, caster not player)
-	--108280, -- Healing Tide Totem (doesn't work, caster not player)
+	108280, -- Healing Tide Totem
 	207778, -- Downpour
 	197995, -- Wellspring
 }) do
@@ -245,38 +248,34 @@ end)
 
 function PlexusStatusHealTracker:COMBAT_LOG_EVENT_UNFILTERED(_, _, event) --luacheck: ignore 212
 	local timestamp, eventType, _, sourceGUID, sourceName, _, _, destGUID, destName, _, _, spellID, spellName = CombatLogGetCurrentEventInfo() --luacheck: ignore 631 113 211
-	if sourceGUID ~= playerGUID then
-		return
+	print(eventType)
+	if sourceGUID == playerGUID and eventType == "SPELL_SUMMON" and spells[spellName] == healingtide then
+        totemguid = destGUID -- healing tide fix
 	end
-	--if eventType ~= "SPELL_HEAL" then
-		--return
-	--end
-	--if not sourceName then
-		--return
-	--end
-	--if spells[spellName] then
-	--	--return
-	--end
-	if not spells[spellName] then
-		return
-	end
-	local spellIcon = spells[spellName]
-	if type(spellIcon) == "boolean" then
-		local name, _, icon = GetSpellInfo(spellID) --luacheck: ignore 113
-		self:RemoveSpell(name)
-		self:AddSpell(name, icon)
-		spellIcon = icon
-	end
-	self.core:SendStatusGained(destGUID, "alert_healTrace",
-		settings.priority,
-		settings.range,
-		settings.color,
-		spellName,
-		nil,
-		nil,
-		spellIcon
-	)
+    if eventType == "SPELL_HEAL" and ((sourceGUID == playerGUID and spells[spellName]) or sourceGUID == totemguid) then
+        local spellIcon = spells[spellName]
+        if sourceGUID == totemGUID then
+            spellIcon = healingtide
+        else
+            spellIcon = spells[spellName]
+        end
+        if type(spellIcon) == "boolean" then
+            local name, _, icon = GetSpellInfo(spellID) --luacheck: ignore 113
+            self:RemoveSpell(name)
+            self:AddSpell(name, icon)
+            spellIcon = icon
+        end
+        self.core:SendStatusGained(destGUID, "alert_healTrace",
+            settings.priority,
+            settings.range,
+            settings.color,
+            spellName,
+            nil,
+            nil,
+            spellIcon
+        )
 
-	active[destGUID] = settings.holdTime
-	timerFrame:Show()
+        active[destGUID] = settings.holdTime
+        timerFrame:Show()
+    end
 end
