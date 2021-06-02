@@ -41,11 +41,12 @@ for _, spellID in ipairs({
     -- Monk
     123986, -- Chi Burst
     115098, -- Chi Wave
-    191840, -- Essence Font
-    196725, -- Refreshing Jade Wind
-    198664, -- Invoke Chi-Ji the Red Crane
+    --191840, -- Essence Font
+    162530, -- Refreshing Jade Wind
+    --198664, -- Invoke Chi-Ji the Red Crane
     116670, -- Vivify
     274912, -- Rising Mist (talent)
+    126890, -- Ancient Teachings of the Monastery (SL Legendary)
     -- Paladin
     119952, -- Arcing Light (talent: Light's Hammer)
     --	183415, -- Aura of Mercy (ignored: passive + too small to matter?)
@@ -68,12 +69,17 @@ for _, spellID in ipairs({
     200128, -- Trail of Light -- NEEDS CHECK, might show as Flash Heal on secondary target
     -- Shaman
     1064,   -- Chain Heal
-    157503, -- Cloudburst  (doesn't work, caster not player)
-    73920,  -- Healing Rain -- NEEDS CHECK, is it big enough to care about?
+    157503, -- Cloudburst (talent, It works now)
+    --73920,  -- Healing Rain -- NEEDS CHECK, is it big enough to care about?
     --5394,   -- Healing Stream Totem (doesn't work, caster not player)
     108280, -- Healing Tide Totem
+    114083, -- Restorative Mists (talent: Ascendance)
     207778, -- Downpour
     197995, -- Wellspring
+    320747, -- Surge of Earth (talent)
+    --278095, -- Overflowing Shores (BFA Azerite trait)
+    --279505, -- Spouting Spirits (BFA Azerite trait)
+    320751, -- Swarming Mist (SL Venthyr)
 }) do
     local name, _, icon = GetSpellInfo(spellID) --luacheck: ignore 113
     if name then
