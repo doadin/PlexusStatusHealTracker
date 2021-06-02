@@ -68,12 +68,15 @@ for _, spellID in ipairs({
     200128, -- Trail of Light -- NEEDS CHECK, might show as Flash Heal on secondary target
     -- Shaman
     1064,   -- Chain Heal
-    157503, -- Cloudburst  (doesn't work, caster not player)
+    157503, -- Cloudburst
     73920,  -- Healing Rain -- NEEDS CHECK, is it big enough to care about?
     --5394,   -- Healing Stream Totem (doesn't work, caster not player)
     108280, -- Healing Tide Totem
+    114083, -- Restorative Mists (talent: Ascendance)
     207778, -- Downpour
     197995, -- Wellspring
+    320747, -- Surge of Earth (talent)
+    320751, -- Swarming Mist (SL Venthyr)
 }) do
     local name, _, icon = GetSpellInfo(spellID) --luacheck: ignore 113
     if name then
