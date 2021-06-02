@@ -46,6 +46,7 @@ for _, spellID in ipairs({
     198664, -- Invoke Chi-Ji the Red Crane
     116670, -- Vivify
     274912, -- Rising Mist (talent)
+    126890, -- Ancient Teachings of the Monastery (SL Legendary)
     -- Paladin
     119952, -- Arcing Light (talent: Light's Hammer)
     --	183415, -- Aura of Mercy (ignored: passive + too small to matter?)
