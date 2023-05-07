@@ -25,5 +25,7 @@
 
 ## Dependencies: Plexus
 
+## IconTexture: Interface\AddOns\Plexus\Media\icon
+
 Localization.lua
 PlexusStatusHealTracker.lua
