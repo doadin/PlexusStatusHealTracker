@@ -36,8 +36,6 @@ PlexusStatusHealTracker.defaultDB = {
 for _, spellID in ipairs({
     -- Druid
     145205,  -- Efflorescence
-    --48438,   -- Wild Growth
-    --	740,    -- Tranquility (ignored: channelled + hits all targets)
     -- Monk
     123986, -- Chi Burst
     115098, -- Chi Wave
@@ -50,14 +48,12 @@ for _, spellID in ipairs({
     389325, -- Awakened Faeline
     -- Paladin
     119952, -- Arcing Light (talent: Light's Hammer)
-    --	183415, -- Aura of Mercy (ignored: passive + too small to matter?)
     114852, -- Holy Prism (cast on enemy target)
     114165, -- Holy Prism (cast on friendly target)
     225311, -- Light of Dawn
     200654, -- Tyr's Deliverance
     -- Priest
     204883, -- Circle of Healing
-    --	64843,  -- Divine Hymn (ignored: channelled + hits all targets + applies a buff)
     110745, -- Divine Star
     390971, -- Halo (disc version)
     120692, -- Halo (holy version)
@@ -69,9 +65,7 @@ for _, spellID in ipairs({
     -- Shaman
     1064,   -- Chain Heal
     157503, -- Cloudburst
-    73920,  -- Healing Rain -- NEEDS CHECK, is it big enough to care about?
     383222, -- Overflowing Shores
-    --5394,   -- Healing Stream Totem (doesn't work, caster not player)
     114911, -- Ancestral Guidance
     108280, -- Healing Tide Totem
     294020, -- Restorative Mists (talent: Ascendance)
