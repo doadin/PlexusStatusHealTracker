@@ -44,40 +44,39 @@ for _, spellID in ipairs({
     191840, -- Essence Font
     196725, -- Refreshing Jade Wind
     198664, -- Invoke Chi-Ji the Red Crane
-    116670, -- Vivify
-    274912, -- Rising Mist (talent)
-    126890, -- Ancient Teachings of the Monastery (SL Legendary)
+    425804, -- Invigorating Mists
+    274912, -- Rising Mist
+    388024, -- Ancient Teachings
+    389325, -- Awakened Faeline
     -- Paladin
     119952, -- Arcing Light (talent: Light's Hammer)
     --	183415, -- Aura of Mercy (ignored: passive + too small to matter?)
-    114852, -- Holy Prism (talent, cast on enemy target)
-    114871, -- Holy Prism (talent, cast on friendly target)
-    85222,  -- Light of Dawn
+    114852, -- Holy Prism (cast on enemy target)
+    114165, -- Holy Prism (cast on friendly target)
+    225311, -- Light of Dawn
+    200654, -- Tyr's Deliverance
     -- Priest
-    32546,  -- Binding Heal -- TODO: ignore on self?
     204883, -- Circle of Healing
     --	64843,  -- Divine Hymn (ignored: channelled + hits all targets + applies a buff)
-    110745, -- Divine Star (talent, disc version)
-    110744, -- Divine Star (talent, holy version)
-    120692, -- Halo (talent, disc version)
-    120517, -- Halo (talent, holy version)
-    132157, -- Holy Nova
+    110745, -- Divine Star
+    390971, -- Halo (disc version)
+    120692, -- Halo (holy version)
+    281265, -- Holy Nova
     34861,  -- Holy Word: Sanctify
-    194509, -- Power Word: Radiance -- NEEDS CHECK
+    194509, -- Power Word: Radiance
     596,    -- Prayer of Healing
-    204065, -- Shadow Covenant -- NEEDS CHECK
     200128, -- Trail of Light -- NEEDS CHECK, might show as Flash Heal on secondary target
     -- Shaman
     1064,   -- Chain Heal
     157503, -- Cloudburst
     73920,  -- Healing Rain -- NEEDS CHECK, is it big enough to care about?
+    383222, -- Overflowing Shores
     --5394,   -- Healing Stream Totem (doesn't work, caster not player)
+    114911, -- Ancestral Guidance
     108280, -- Healing Tide Totem
-    114083, -- Restorative Mists (talent: Ascendance)
+    294020, -- Restorative Mists (talent: Ascendance)
     207778, -- Downpour
     197995, -- Wellspring
-    320747, -- Surge of Earth (talent)
-    320751, -- Swarming Mist (SL Venthyr)
 }) do
     local name, _, icon = GetSpellInfo(spellID) --luacheck: ignore 113
     if name then
