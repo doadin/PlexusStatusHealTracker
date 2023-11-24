@@ -36,48 +36,67 @@ PlexusStatusHealTracker.defaultDB = {
 for _, spellID in ipairs({
     -- Druid
     145205,  -- Efflorescence
-    --48438,   -- Wild Growth
-    --	740,    -- Tranquility (ignored: channelled + hits all targets)
+    48438,   -- Wild Growth
+    740,    -- Tranquility (channelled + hits all targets(45yrds))
+    391888,    -- Adaptive Swarm
+    392325,    -- Verdancy
+    145108,    -- Ysera's Gift
+    371905,    -- After the Wildfire
     -- Monk
     123986, -- Chi Burst
     115098, -- Chi Wave
-    191840, -- Essence Font
+    191837, -- Essence Font
     196725, -- Refreshing Jade Wind
-    198664, -- Invoke Chi-Ji the Red Crane
-    116670, -- Vivify
-    274912, -- Rising Mist (talent)
-    126890, -- Ancient Teachings of the Monastery (SL Legendary)
+    325197, -- Invoke Chi-Ji the Red Crane
+    374586, -- Invigorating Mists
+    274909, -- Rising Mist (talent)
+    388023, -- Ancient Teachings of the Monastery
+    388193, -- Faeline Stomp
+    388779, -- Awakened Faeline
+    388038, -- Yu'lon's Whisper
+    388551, -- Uplifted Spirits
     -- Paladin
-    119952, -- Arcing Light (talent: Light's Hammer)
-    --	183415, -- Aura of Mercy (ignored: passive + too small to matter?)
+    114158, -- Arcing Light (talent: Light's Hammer)
     114852, -- Holy Prism (talent, cast on enemy target)
-    114871, -- Holy Prism (talent, cast on friendly target)
+    114165, -- Holy Prism (talent, cast on friendly target)
     85222,  -- Light of Dawn
+    200652, -- Tyr's Deliverance
     -- Priest
-    32546,  -- Binding Heal -- TODO: ignore on self?
+    368275,  -- Binding Heal
     204883, -- Circle of Healing
-    --	64843,  -- Divine Hymn (ignored: channelled + hits all targets + applies a buff)
-    110745, -- Divine Star (talent, disc version)
-    110744, -- Divine Star (talent, holy version)
-    120692, -- Halo (talent, disc version)
-    120517, -- Halo (talent, holy version)
+    64843,  -- Divine Hymn (channelled + hits all targets(40yrds) + applies a buff)
+    110744, -- Divine Star (talent)
+    122121, -- Divine Star (talent,Disc Shadow Covenant)
+    120517, -- Halo (talent)
+    120644, -- Halo (talent,Disc Shadow Covenant)
     132157, -- Holy Nova
     34861,  -- Holy Word: Sanctify
-    194509, -- Power Word: Radiance -- NEEDS CHECK
+    194509, -- Power Word: Radiance
     596,    -- Prayer of Healing
-    204065, -- Shadow Covenant -- NEEDS CHECK
-    200128, -- Trail of Light -- NEEDS CHECK, might show as Flash Heal on secondary target
+    200128, -- Trail of Light
+    197419  , -- Contrition
     -- Shaman
     1064,   -- Chain Heal
     157503, -- Cloudburst
-    73920,  -- Healing Rain -- NEEDS CHECK, is it big enough to care about?
+    383222, -- Overflowing Shores
+    114911, -- Ancestral Guidance
+    73920,  -- Healing Rain
     --5394,   -- Healing Stream Totem (doesn't work, caster not player)
     108280, -- Healing Tide Totem
-    114083, -- Restorative Mists (talent: Ascendance)
+    294020, -- Restorative Mists (talent: Ascendance)
     207778, -- Downpour
     197995, -- Wellspring
     320747, -- Surge of Earth (talent)
     320751, -- Swarming Mist (SL Venthyr)
+    382021, -- Earthliving Weapon (talent)
+    -- Evoker
+    355936, --Dream Breath (talent)
+    363534, --Rewind (talent, All In 40yrds)
+    370960, --Emerald Communion (talent, 40yrds)
+    373861, --Temporal Anomaly (talent)
+    359816, --Dream Flight (talent)
+    371832, --Cycle of Life (talent)
+    355913, --Emerald Blossom
 }) do
     local name, _, icon = GetSpellInfo(spellID) --luacheck: ignore 113
     if name then
