@@ -18,8 +18,6 @@ local GetSpellInfo = GetSpellInfo
 
 local PlexusStatusHealTracker = Plexus:NewStatusModule("PlexusStatusHealTracker") --luacheck: ignore 113
 local active, spellOrder, playerGUID, settings, spells = {}, {}
-local totemguid = ""
-local healingtide = select(3, GetSpellInfo(108280))
 
 ------------------------------------------------------------------------
 
@@ -35,36 +33,29 @@ PlexusStatusHealTracker.defaultDB = {
 }
 for _, spellID in ipairs({
     -- Druid
-    145205,  -- Efflorescence
-    48438,   -- Wild Growth
-    740,    -- Tranquility (channelled + hits all targets(45yrds))
     391888,    -- Adaptive Swarm
     392325,    -- Verdancy
     145108,    -- Ysera's Gift
-    371905,    -- After the Wildfire
     -- Monk
     123986, -- Chi Burst
     115098, -- Chi Wave
-    191837, -- Essence Font
     196725, -- Refreshing Jade Wind
-    325197, -- Invoke Chi-Ji the Red Crane
-    374586, -- Invigorating Mists
+    274586, -- Invigorating Mists
     274909, -- Rising Mist (talent)
-    388023, -- Ancient Teachings of the Monastery
+    388024, -- Ancient Teachings
     388193, -- Faeline Stomp
     388779, -- Awakened Faeline
     388038, -- Yu'lon's Whisper
-    388551, -- Uplifted Spirits
+    399491, -- Sheilun's Gift
     -- Paladin
-    114158, -- Arcing Light (talent: Light's Hammer)
+    119952, -- Arcing Light (talent: Light's Hammer)
     114852, -- Holy Prism (talent, cast on enemy target)
     114165, -- Holy Prism (talent, cast on friendly target)
     85222,  -- Light of Dawn
     200652, -- Tyr's Deliverance
     -- Priest
-    368275,  -- Binding Heal
+    368276,  -- Binding Heal
     204883, -- Circle of Healing
-    64843,  -- Divine Hymn (channelled + hits all targets(40yrds) + applies a buff)
     110744, -- Divine Star (talent)
     122121, -- Divine Star (talent,Disc Shadow Covenant)
     120517, -- Halo (talent)
@@ -80,23 +71,16 @@ for _, spellID in ipairs({
     157503, -- Cloudburst
     383222, -- Overflowing Shores
     114911, -- Ancestral Guidance
-    73920,  -- Healing Rain
     --5394,   -- Healing Stream Totem (doesn't work, caster not player)
     108280, -- Healing Tide Totem
     294020, -- Restorative Mists (talent: Ascendance)
     207778, -- Downpour
     197995, -- Wellspring
-    320747, -- Surge of Earth (talent)
-    320751, -- Swarming Mist (SL Venthyr)
-    382021, -- Earthliving Weapon (talent)
     -- Evoker
-    355936, --Dream Breath (talent)
-    363534, --Rewind (talent, All In 40yrds)
     370960, --Emerald Communion (talent, 40yrds)
-    373861, --Temporal Anomaly (talent)
-    359816, --Dream Flight (talent)
     371832, --Cycle of Life (talent)
     355913, --Emerald Blossom
+    367226, --Spiritbloom
 }) do
     local name, _, icon = GetSpellInfo(spellID) --luacheck: ignore 113
     if name then
@@ -270,25 +254,14 @@ timerFrame:SetScript("OnUpdate", function(self, elapsed)
     end
 end)
 
-function PlexusStatusHealTracker:COMBAT_LOG_EVENT_UNFILTERED(_, _, event) --luacheck: ignore 212
-    local timestamp, eventType, _, sourceGUID, sourceName, _, _, destGUID, destName, _, _, spellID, spellName = CombatLogGetCurrentEventInfo() --luacheck: ignore 631 113 211
-    --local totemguid
-    if sourceGUID == playerGUID and eventType == "SPELL_SUMMON" and spells[spellName] == healingtide then
+local totemguid
+function PlexusStatusHealTracker:COMBAT_LOG_EVENT_UNFILTERED() --luacheck: ignore 212 _, _, event
+    local _, eventType, _, sourceGUID, _, _, _, destGUID, _, _, _, spellID, spellName = CombatLogGetCurrentEventInfo() --luacheck: ignore 631 113 211
+    if sourceGUID == playerGUID and eventType == "SPELL_SUMMON" and spells[spellName] then
         totemguid = destGUID -- healing tide fix
     end
-    if eventType == "SPELL_HEAL" and ((sourceGUID == playerGUID and spells[spellName]) or sourceGUID == totemguid) then
-        local spellIcon
-        if sourceGUID == totemGUID then
-            spellIcon = healingtide
-        else
-            spellIcon = spells[spellName]
-        end
-        if type(spellIcon) == "boolean" then
-            local name, _, icon = GetSpellInfo(spellID) --luacheck: ignore 113
-            self:RemoveSpell(name)
-            self:AddSpell(name, icon)
-            spellIcon = icon
-        end
+    if (eventType == "SPELL_HEAL" or eventType == "SPELL_PERIODIC_HEAL") and ((sourceGUID == playerGUID and spells[spellName]) or sourceGUID == totemguid) then
+        local _, _, spellIcon = GetSpellInfo(spellID) --luacheck: ignore 113
         self.core:SendStatusGained(destGUID, "alert_healTrace",
             settings.priority,
             settings.range,
@@ -298,8 +271,9 @@ function PlexusStatusHealTracker:COMBAT_LOG_EVENT_UNFILTERED(_, _, event) --luac
             nil,
             spellIcon
         )
-
-        active[destGUID] = settings.holdTime
+        if destGUID then
+            active[destGUID] = settings.holdTime
+        end
         timerFrame:Show()
     end
 end
