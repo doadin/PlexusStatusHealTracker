@@ -82,7 +82,7 @@ for _, spellID in ipairs({
     355913, --Emerald Blossom
     367226, --Spiritbloom
 }) do
-    local spellInfo = GetSpellInfo(spellid)
+    local spellInfo = GetSpellInfo(spellID)
     local name = C_Spell and spellInfo.name or spellInfo
     local icon = C_Spell and spellInfo.iconID or select(3,GetSpellInfo(spellID))
     if name then
