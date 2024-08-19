@@ -83,8 +83,8 @@ for _, spellID in ipairs({
     367226, --Spiritbloom
 }) do
     local spellInfo = GetSpellInfo(spellID)
-    local name = C_Spell and spellInfo.name or spellInfo
-    local icon = C_Spell and spellInfo.iconID or select(3,GetSpellInfo(spellID))
+    local name = C_Spell and C_Spell.GetSpellInfo and spellInfo.name or spellInfo
+    local icon = C_Spell and C_Spell.GetSpellInfo and spellInfo.iconID or select(3,GetSpellInfo(spellID))
     if name then
         PlexusStatusHealTracker.defaultDB.alert_healTrace.spells[name] = icon
     end
