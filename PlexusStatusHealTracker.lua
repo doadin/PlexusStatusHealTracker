@@ -14,7 +14,7 @@
 
 local _, ns = ...
 local L = ns.L
-local GetSpellInfo = C_Spell and C_Spell.GetSpellInfo or GetSpellInfo
+local GetSpellInfo = C_Spell and C_Spell.GetSpellInfo and C_Spell.GetSpellInfo or GetSpellInfo
 
 local PlexusStatusHealTracker = Plexus:NewStatusModule("PlexusStatusHealTracker") --luacheck: ignore 113
 local active, spellOrder, playerGUID, settings, spells = {}, {}
@@ -83,8 +83,8 @@ for _, spellID in ipairs({
     367226, --Spiritbloom
 }) do
     local spellInfo = GetSpellInfo(spellID)
-    local name = C_Spell and C_Spell.GetSpellInfo and spellInfo.name or spellInfo
-    local icon = C_Spell and C_Spell.GetSpellInfo and spellInfo.iconID or select(3,GetSpellInfo(spellID))
+    local name = C_Spell and C_Spell.GetSpellName and C_Spell.GetSpellName(spellID) or spellInfo
+    local icon = Plexus:IsRetailWow() and spellInfo.iconID or select(3,GetSpellInfo(spellID))
     if name then
         PlexusStatusHealTracker.defaultDB.alert_healTrace.spells[name] = icon
     end
