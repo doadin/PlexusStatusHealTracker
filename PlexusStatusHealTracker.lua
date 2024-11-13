@@ -14,7 +14,7 @@
 
 local _, ns = ...
 local L = ns.L
-local GetSpellInfo = C_Spell and C_Spell.GetSpellInfo and C_Spell.GetSpellInfo or GetSpellInfo
+local GetSpellInfo = C_Spell.GetSpellInfo
 
 local PlexusStatusHealTracker = Plexus:NewStatusModule("PlexusStatusHealTracker") --luacheck: ignore 113
 local active, spellOrder, playerGUID, settings, spells = {}, {}
@@ -83,8 +83,8 @@ for _, spellID in ipairs({
     367226, --Spiritbloom
 }) do
     local spellInfo = GetSpellInfo(spellID)
-    local name = C_Spell and C_Spell.GetSpellName and C_Spell.GetSpellName(spellID) or spellInfo
-    local icon = Plexus:IsRetailWow() and spellInfo.iconID or select(3,GetSpellInfo(spellID))
+    local name = spellInfo and spellInfo.name or nil
+    local icon = spellInfo and spellInfo.iconID
     if name then
         PlexusStatusHealTracker.defaultDB.alert_healTrace.spells[name] = icon
     end
@@ -139,8 +139,10 @@ do
 
     function PlexusStatusHealTracker:AddSpell(name, icon)
         if name:match("^(%d+)$") then
-            local _
-            name, _, icon = GetSpellInfo(name) --luacheck: ignore 113
+            --local _
+            --name, _, icon = GetSpellInfo(name) --luacheck: ignore 113
+            name = GetSpellInfo(name).name or nil
+            icon = GetSpellInfo(name).iconID
         end
 
         if not name then return end
@@ -263,7 +265,8 @@ function PlexusStatusHealTracker:COMBAT_LOG_EVENT_UNFILTERED() --luacheck: ignor
         totemguid = destGUID -- healing tide fix
     end
     if (eventType == "SPELL_HEAL" or eventType == "SPELL_PERIODIC_HEAL") and ((sourceGUID == playerGUID and spells[spellName]) or sourceGUID == totemguid) then
-        local _, _, spellIcon = GetSpellInfo(spellID) --luacheck: ignore 113
+        --local _, _, spellIcon = GetSpellInfo(spellID) --luacheck: ignore 113
+        local spellIcon = GetSpellInfo(spellID).iconID
         self.core:SendStatusGained(destGUID, "alert_healTrace",
             settings.priority,
             settings.range,
